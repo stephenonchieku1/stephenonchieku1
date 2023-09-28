@@ -103,14 +103,10 @@
 
 <br/>  
 
-## Recent Blog Posts  
+
   
 
-<br/>  
-
-<div align="center"><img src="https://rishavanand.github.io/static/images/spotify-readme-example.svg" /></div>  
-
-<br/>  
+ 
 
 <div align="center">
 <img src="https://komarev.com/ghpvc/?username=stephenonchieku1&&style=flat-square" align="center" />
@@ -124,4 +120,4 @@
 <br />
 
 ----
-<div align="center">copyright @2023<a href="https://profilinator.rishav.dev/" target="_blank">stephen Onchieku</a></div>
+<div align="center">copyright @2023 stephen Onchieku</div>
