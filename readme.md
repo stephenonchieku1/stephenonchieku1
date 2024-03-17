@@ -4,10 +4,7 @@
   
 
 ### **<div align="center">I'm Stephen, a full-time full-stack software  developer 👨‍💻 </div>**  
-  
-
-- 🔭 I’m currently working on [ELEWA-CLM](https://github.com/italanta/elewa)  
-  
+    
 
 - 🌱 I’m currently learning Dart and Flutter  
   
