@@ -13,9 +13,14 @@ SESSION = requests.Session()
 # Fine-grained personal access token with All Repositories access:
 # Account permissions: read:Followers, read:Starring, read:Watching
 # Repository permissions: read:Commit statuses, read:Contents, read:Issues, read:Metadata, read:Pull Requests
-ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN', '')
-USER_NAME = os.environ.get('USER_NAME', 'stephenonchieku1')
-HEADERS = {'authorization': 'token ' + ACCESS_TOKEN} if ACCESS_TOKEN else {}
+ACCESS_TOKEN = os.environ.get('ACCESS_TOKEN') or os.environ.get('GITHUB_TOKEN') or ''
+USER_NAME = os.environ.get('USER_NAME') or os.environ.get('GITHUB_REPOSITORY_OWNER') or 'stephenonchieku1'
+
+if ACCESS_TOKEN:
+    auth_prefix = 'token ' if ACCESS_TOKEN.startswith(('ghp_', 'github_pat_')) else 'Bearer '
+    HEADERS = {'authorization': auth_prefix + ACCESS_TOKEN, 'User-Agent': f'{USER_NAME}-readme-bot'}
+else:
+    HEADERS = {}
 QUERY_COUNT = {'user_summary': 0, 'graph_commits': 0, 'loc_query': 0, 'recursive_loc': 0}
 OWNER_ID = {'id': ''}
 
