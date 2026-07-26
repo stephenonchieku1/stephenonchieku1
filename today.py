@@ -51,8 +51,13 @@ def simple_request(func_name, query, variables):
     """
     Returns a request using connection pooling, or raises an Exception if response fails.
     """
+    if not HEADERS:
+        raise Exception(f"{func_name} failed: No ACCESS_TOKEN or GITHUB_TOKEN environment variable provided.")
     request = SESSION.post('https://api.github.com/graphql', json={'query': query, 'variables': variables}, headers=HEADERS)
     if request.status_code == 200:
+        res_json = request.json()
+        if 'errors' in res_json and ('data' not in res_json or res_json.get('data') is None):
+            raise Exception(f"{func_name} GraphQL error: {res_json['errors']}")
         return request
     raise Exception(f"{func_name} failed with status {request.status_code}: {request.text} | {QUERY_COUNT}")
 
@@ -87,14 +92,19 @@ def fetch_user_summary(username):
         }
     }'''
     request = simple_request(fetch_user_summary.__name__, query, {'login': username})
-    data = request.json()['data']['user']
+    res_json = request.json()
+    user_data = res_json.get('data', {}).get('user')
+    if not user_data:
+        errors = res_json.get('errors', 'Unknown error')
+        raise Exception(f"GraphQL fetch_user_summary failed for user '{username}': {errors}")
     
-    owner_id = {'id': data['id']}
-    created_at = data['createdAt']
-    followers = data['followers']['totalCount']
-    repo_count = data['ownedRepos']['totalCount']
-    star_count = sum(edge['node']['stargazers']['totalCount'] for edge in data['ownedRepos']['edges'])
-    contrib_count = data['contribRepos']['totalCount']
+    owner_id = {'id': user_data.get('id', '')}
+    created_at = user_data.get('createdAt', '')
+    followers = user_data.get('followers', {}).get('totalCount', 0)
+    owned_repos = user_data.get('ownedRepos', {})
+    repo_count = owned_repos.get('totalCount', 0)
+    star_count = sum(edge['node']['stargazers']['totalCount'] for edge in owned_repos.get('edges', []) if edge and edge.get('node'))
+    contrib_count = user_data.get('contribRepos', {}).get('totalCount', repo_count)
     
     return owner_id, created_at, followers, repo_count, star_count, contrib_count
 
@@ -224,12 +234,19 @@ def loc_query(owner_affiliation, comment_size=0, force_cache=False, cursor=None,
     }'''
     variables = {'owner_affiliation': owner_affiliation, 'login': USER_NAME, 'cursor': cursor}
     request = simple_request(loc_query.__name__, query, variables)
-    page_info = request.json()['data']['user']['repositories']['pageInfo']
-    current_edges = request.json()['data']['user']['repositories']['edges']
+    res_json = request.json()
+    user_data = res_json.get('data', {}).get('user')
+    if not user_data or 'repositories' not in user_data:
+        print(f"Warning in loc_query: {res_json.get('errors')}")
+        return cache_builder(edges, comment_size, force_cache)
+        
+    repos = user_data['repositories']
+    page_info = repos.get('pageInfo', {})
+    current_edges = repos.get('edges', [])
     edges.extend(current_edges)
 
-    if page_info['hasNextPage']:
-        return loc_query(owner_affiliation, comment_size, force_cache, page_info['endCursor'], edges)
+    if page_info.get('hasNextPage'):
+        return loc_query(owner_affiliation, comment_size, force_cache, page_info.get('endCursor'), edges)
     return cache_builder(edges, comment_size, force_cache)
 
 
