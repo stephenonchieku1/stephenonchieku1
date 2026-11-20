@@ -143,17 +143,17 @@ def fetch_user_summary(username):
         owner_id = {'id': user_data.get('id', '')}
         created_at = user_data.get('createdAt', '2022-07-28T12:02:24Z')
         followers = user_data.get('followers', {}).get('totalCount', 17)
-        following = user_data.get('following', {}).get('totalCount', 45)
+        following = user_data.get('following', {}).get('totalCount', 40)
         prs = user_data.get('pullRequests', {}).get('totalCount', 21)
         issues = user_data.get('issues', {}).get('totalCount', 78)
         
         contrib_col = user_data.get('contributionsCollection', {})
-        annual_contribs = contrib_col.get('contributionCalendar', {}).get('totalContributions', 520)
+        annual_contribs = contrib_col.get('contributionCalendar', {}).get('totalContributions', 2067)
         
         owned_repos = user_data.get('ownedRepos', {})
         repo_count = owned_repos.get('totalCount', 289)
         star_count = sum(edge['node']['stargazers']['totalCount'] for edge in owned_repos.get('edges', []) if edge and edge.get('node'))
-        contrib_count = user_data.get('contribRepos', {}).get('totalCount', repo_count)
+        contrib_count = user_data.get('contribRepos', {}).get('totalCount', 297)
 
         return owner_id, created_at, followers, following, prs, issues, annual_contribs, repo_count, star_count, contrib_count
         
@@ -176,17 +176,17 @@ def fetch_user_summary_rest_fallback(username):
         owner_id = {'id': str(data.get('id', ''))}
         created_at = data.get('created_at', '2022-07-28T12:02:24Z')
         followers = data.get('followers', 17)
-        following = data.get('following', 45)
+        following = data.get('following', 40)
         repo_count = data.get('public_repos', 289)
         star_count = 0
-        contrib_count = repo_count
+        contrib_count = 297
         prs = 21
         issues = 78
-        annual_contribs = 520
+        annual_contribs = 2067
         return owner_id, created_at, followers, following, prs, issues, annual_contribs, repo_count, star_count, contrib_count
     
-    # Static safe fallbacks if all network calls fail
-    return {'id': ''}, '2022-07-28T12:02:24Z', 17, 45, 21, 78, 520, 289, 0, 297
+    # Safe fallbacks
+    return {'id': ''}, '2022-07-28T12:02:24Z', 17, 40, 21, 78, 2067, 289, 0, 297
 
 
 def calculate_account_age(created_at_str):
@@ -420,7 +420,7 @@ def commit_counter(comment_size):
 
 def svg_overwrite(filename, commit_data, repo_data, contrib_data, star_data, follower_data, following_data, pr_data, issue_data, contribs_data, loc_data, member_since, account_age):
     """
-    Updates all dynamic elements and dot leaders in the SVG files.
+    Updates all dynamic statistics elements and dot leaders in the SVG files.
     """
     if not os.path.exists(filename):
         print(f"Warning: {filename} not found.")
@@ -429,7 +429,7 @@ def svg_overwrite(filename, commit_data, repo_data, contrib_data, star_data, fol
     tree = etree.parse(filename)
     root = tree.getroot()
 
-    # Left Panel: Statistics
+    # Right Panel: Live GitHub Statistics
     justify_format(root, 'commit_data', commit_data, 16)
     justify_format(root, 'repo_data', repo_data, 3)
     justify_format(root, 'contrib_data', contrib_data, 1)
@@ -444,7 +444,6 @@ def svg_overwrite(filename, commit_data, repo_data, contrib_data, star_data, fol
     justify_format(root, 'loc_data', loc_data[2], 12)
     find_and_replace(root, 'loc_add', f"{loc_data[0]:,}")
     find_and_replace(root, 'loc_del', f"{loc_data[1]:,}")
-    justify_format(root, 'loc_net', loc_data[2], 8)
 
     justify_format(root, 'member_since', member_since, 11)
     justify_format(root, 'account_age', account_age, 12)
