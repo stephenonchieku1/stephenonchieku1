@@ -57,7 +57,7 @@ text, tspan {white-space: pre;}
 <tspan x="535" y="190">- Contributions</tspan> -———————————————————————————————
 <tspan x="535" y="210" class="cc">. </tspan><tspan class="key">Pull Requests</tspan>:<tspan class="cc" id="pr_data_dots"> ........ </tspan><tspan class="value" id="pr_data">21</tspan>
 <tspan x="535" y="230" class="cc">. </tspan><tspan class="key">Issues Opened</tspan>:<tspan class="cc" id="issue_data_dots"> ........ </tspan><tspan class="value" id="issue_data">78</tspan>
-<tspan x="535" y="250" class="cc">. </tspan><tspan class="key">Annual Contributions</tspan>:<tspan class="cc" id="contribs_data_dots"></tspan><tspan class="value" id="contribs_data">2,119</tspan>
+<tspan x="535" y="250" class="cc">. </tspan><tspan class="key">Annual Contributions</tspan>:<tspan class="cc" id="contribs_data_dots"></tspan><tspan class="value" id="contribs_data">2,120</tspan>
 <tspan x="535" y="270" class="cc">. </tspan>
 <tspan x="535" y="290">- Code Metrics (LOC)</tspan> -——————————————————————————
 <tspan x="535" y="310" class="cc">. </tspan><tspan class="key">Lines of Code</tspan>:<tspan class="cc" id="loc_data_dots">. </tspan><tspan class="value" id="loc_data">23,120,880</tspan>
