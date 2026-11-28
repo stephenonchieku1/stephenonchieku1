@@ -57,7 +57,7 @@ text, tspan {white-space: pre;}
 <tspan x="535" y="190">- Contributions</tspan> -———————————————————————————————
 <tspan x="535" y="210" class="cc">. </tspan><tspan class="key">Pull Requests</tspan>:<tspan class="cc" id="pr_data_dots"> ........ </tspan><tspan class="value" id="pr_data">21</tspan>
 <tspan x="535" y="230" class="cc">. </tspan><tspan class="key">Issues Opened</tspan>:<tspan class="cc" id="issue_data_dots"> ........ </tspan><tspan class="value" id="issue_data">78</tspan>
-<tspan x="535" y="250" class="cc">. </tspan><tspan class="key">Annual Contributions</tspan>:<tspan class="cc" id="contribs_data_dots"></tspan><tspan class="value" id="contribs_data">2,141</tspan>
+<tspan x="535" y="250" class="cc">. </tspan><tspan class="key">Annual Contributions</tspan>:<tspan class="cc" id="contribs_data_dots"></tspan><tspan class="value" id="contribs_data">2,142</tspan>
 <tspan x="535" y="270" class="cc">. </tspan>
 <tspan x="535" y="290">- Code Metrics (LOC)</tspan> -——————————————————————————
 <tspan x="535" y="310" class="cc">. </tspan><tspan class="key">Lines of Code</tspan>:<tspan class="cc" id="loc_data_dots">. </tspan><tspan class="value" id="loc_data">23,120,880</tspan>
@@ -66,7 +66,7 @@ text, tspan {white-space: pre;}
 <tspan x="535" y="370" class="cc">. </tspan>
 <tspan x="535" y="390">- Account Overview</tspan> -————————————————————————————
 <tspan x="535" y="410" class="cc">. </tspan><tspan class="key">Member Since</tspan>:<tspan class="cc" id="member_since_dots">. </tspan><tspan class="value" id="member_since">July 2022</tspan>
-<tspan x="535" y="430" class="cc">. </tspan><tspan class="key">Account Age</tspan>:<tspan class="cc" id="account_age_dots"></tspan><tspan class="value" id="account_age">4 yrs, 3 mos</tspan>
+<tspan x="535" y="430" class="cc">. </tspan><tspan class="key">Account Age</tspan>:<tspan class="cc" id="account_age_dots"></tspan><tspan class="value" id="account_age">4 yrs, 4 mos</tspan>
 <tspan x="535" y="450" class="cc">. </tspan><tspan class="key">Automation</tspan>:<tspan class="cc"> ............. </tspan><tspan class="value">GitHub Actions Bot</tspan>
 <tspan x="535" y="470" class="cc">. </tspan><tspan class="key">Sync Frequency</tspan>:<tspan class="cc"> ......... </tspan><tspan class="value">Daily Scheduled Build</tspan>
 <tspan x="535" y="490" class="cc">. </tspan><tspan class="key">Status</tspan>:<tspan class="cc"> ................. </tspan><tspan class="value">Active Development</tspan>
